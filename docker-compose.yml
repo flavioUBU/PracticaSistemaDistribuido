@@ -1,0 +1,14 @@
+services:
+  api-flask:
+    build: ./api_flask
+    container_name: api-flask
+    ports:
+      - "5000:5000"
+
+  app-spring:
+    build: ./basico
+    container_name: app-spring
+    ports:
+      - "8099:8099"
+    depends_on:
+      - api-flask
