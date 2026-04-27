@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-flask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-flask
+  template:
+    metadata:
+      labels:
+        app: api-flask
+    spec:
+      containers:
+        - name: api-flask
+          image: api-flask:v3
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000

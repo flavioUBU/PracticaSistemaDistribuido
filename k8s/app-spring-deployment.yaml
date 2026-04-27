@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-spring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-spring
+  template:
+    metadata:
+      labels:
+        app: app-spring
+    spec:
+      containers:
+        - name: app-spring
+          image: app-spring:v5
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8099
