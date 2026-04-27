@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pruebas API Python</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f7f7f7;
+            color: #222;
+        }
+
+        .contenedor {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.08);
+        }
+
+        h1, h2 {
+            color: #1f3c88;
+        }
+
+        .menu a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #1f3c88;
+            font-weight: bold;
+        }
+
+        .seccion {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        button {
+            background-color: #1f3c88;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #16306d;
+        }
+
+        .resultado {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #eef3ff;
+            border-left: 5px solid #1f3c88;
+            border-radius: 6px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .descripcion {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="contenedor">
+    <h1>Pruebas de API Python</h1>
+    <p class="descripcion">
+        Desde esta pantalla se realizan llamadas desde Spring Boot a la API Flask
+        para comprobar respuestas correctas y tratamiento de excepciones.
+    </p>
+
+    <div class="menu">
+        <a th:href="@{/}">Inicio</a>
+        <a th:href="@{/login}">Login</a>
+        <a th:href="@{/api-test}">Pruebas API Python</a>
+    </div>
+
+    <div class="seccion">
+        <h2>Llamada simple</h2>
+        <p>Realiza una llamada correcta a la API Flask.</p>
+        <form th:action="@{/api-test/probar}" method="get">
+            <button type="submit">Probar llamada</button>
+        </form>
+    </div>
+
+    <div class="seccion">
+        <h2>Error de archivo</h2>
+        <p>Simula un error al intentar abrir un archivo en la API Flask.</p>
+        <form th:action="@{/api-test/archivo-error}" method="get">
+            <button type="submit">Probar error de archivo</button>
+        </form>
+    </div>
+
+    <div class="seccion">
+        <h2>Error de base de datos</h2>
+        <p>Simula un error de acceso a base de datos en la API Flask.</p>
+        <form th:action="@{/api-test/db-error}" method="get">
+            <button type="submit">Probar error de base de datos</button>
+        </form>
+    </div>
+
+    <div class="seccion">
+        <h2>API de Pokémon</h2>
+        <p>Consulta un recurso externo desde Flask y devuelve el resultado a Spring.</p>
+        <form th:action="@{/api-test/pokemon}" method="get">
+            <button type="submit">Probar API de Pokémon</button>
+        </form>
+    </div>
+
+    <div class="seccion">
+        <h2>Error API de Pokémon</h2>
+        <p>Simula la consulta de un Pokémon inexistente.</p>
+        <form th:action="@{/api-test/pokemon-error}" method="get">
+            <button type="submit">Probar error de Pokémon</button>
+        </form>
+    </div>
+
+    <div class="seccion">
+        <h2>Resultado</h2>
+        <div class="resultado" th:text="${mensaje}">
+            Aquí aparecerá el resultado de la llamada a la API Python.
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
