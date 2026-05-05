@@ -59,4 +59,18 @@ public class Maincontroller {
         interfazConPantalla.addAttribute("mensaje", resultado);
         return "api-test";
     }
+
+    @GetMapping("/api-test/db-ok")
+    public String probarBaseDatosOk(ModelMap interfazConPantalla) {
+        String resultado = apiTestService.probarBaseDatosOk();
+        interfazConPantalla.addAttribute("mensaje", resultado);
+        return "api-test";
+    }
+
+    @GetMapping("/api-test/db-error-real")
+    public String probarBaseDatosErrorReal(ModelMap interfazConPantalla) {
+        String resultado = apiTestService.probarBaseDatosErrorReal();
+        interfazConPantalla.addAttribute("mensaje", resultado);
+        return "api-test";
+    }
 }

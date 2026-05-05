@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api-flask
-          image: api-flask:v3
+          image: api-flask:v4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000

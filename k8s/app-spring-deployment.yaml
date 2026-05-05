@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app-spring
-          image: app-spring:v5
+          image: app-spring:v7
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8099

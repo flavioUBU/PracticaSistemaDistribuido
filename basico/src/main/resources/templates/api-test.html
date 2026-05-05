@@ -99,10 +99,27 @@
     </div>
 
     <div class="seccion">
+        <h2>Consulta correcta de base de datos</h2>
+        <p>Realiza una consulta real a la base de datos desde la API Flask.</p>
+        <form th:action="@{/api-test/db-ok}" method="get">
+            <button type="submit">Probar consulta de base de datos</button>
+        </form>
+    </div>
+
+
+    <div class="seccion">
         <h2>Error de base de datos</h2>
         <p>Simula un error de acceso a base de datos en la API Flask.</p>
         <form th:action="@{/api-test/db-error}" method="get">
             <button type="submit">Probar error de base de datos</button>
+        </form>
+    </div>
+
+    <div class="seccion">
+        <h2>Error real de base de datos</h2>
+        <p>Simula un error real al consultar una tabla inexistente desde la API Flask.</p>
+        <form th:action="@{/api-test/db-error-real}" method="get">
+            <button type="submit">Probar error real de base de datos</button>
         </form>
     </div>
 

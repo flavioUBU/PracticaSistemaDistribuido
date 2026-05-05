@@ -125,4 +125,33 @@ public class ApiTestService {
             return "No se pudo conectar con la API Flask.";
         }
     }
+
+    public String probarBaseDatosOk() {
+        try {
+            String url = "http://api-flask:5000/db-ok";
+            String respuesta = restTemplate.getForObject(url, String.class);
+            return "Consulta de base de datos realizada correctamente: " + respuesta;
+        } catch (HttpClientErrorException e) {
+            return "La API Flask devolvió un error del cliente.";
+        } catch (HttpServerErrorException e) {
+            return "La API Flask informó de un error al acceder a la base de datos.";
+        } catch (RestClientException e) {
+            return "No se pudo conectar con la API Flask.";
+        }
+    }
+
+    public String probarBaseDatosErrorReal() {
+        try {
+            String url = "http://api-flask:5000/db-error-real";
+            String respuesta = restTemplate.getForObject(url, String.class);
+            return "Respuesta inesperada: " + respuesta;
+        } catch (HttpClientErrorException e) {
+            return "La API Flask devolvió un error del cliente.";
+        } catch (HttpServerErrorException e) {
+            return "La API Flask informó de un error real al consultar la base de datos.";
+        } catch (RestClientException e) {
+            return "No se pudo conectar con la API Flask.";
+        }
+    }
+
 }

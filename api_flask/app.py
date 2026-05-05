@@ -1,4 +1,5 @@
 import requests
+import mysql.connector
 from flask import Flask, jsonify
 
 app = Flask(__name__)
@@ -31,6 +32,43 @@ def db_error():
             "error": True,
             "tipo": "DB_ERROR",
             "mensaje": "No se pudo acceder a la base de datos"
+        }), 500
+
+@app.route("/db-ok", methods=["GET"])
+def db_ok():
+    try:
+        conexion = mysql.connector.connect(
+            host="host.docker.internal",
+            port=3506,
+            user="root",
+            password="eneas2805",
+            database="basicosd"
+        )
+
+        cursor = conexion.cursor()
+        cursor.execute("SELECT username, email FROM user LIMIT 1")
+        resultado = cursor.fetchone()
+
+        cursor.close()
+        conexion.close()
+
+        if resultado:
+            return jsonify({
+                "error": False,
+                "mensaje": "Consulta a base de datos realizada correctamente",
+                "username": resultado[0],
+                "email": resultado[1]
+            })
+
+        return jsonify({
+            "error": False,
+            "mensaje": "La base de datos respondió, pero no hay usuarios"
+        })
+    except mysql.connector.Error:
+        return jsonify({
+            "error": True,
+            "tipo": "DB_ERROR",
+            "mensaje": "No se pudo acceder correctamente a la base de datos"
         }), 500
 
 @app.route("/pokemon/<nombre>", methods=["GET"])
@@ -89,6 +127,36 @@ def pokemon_error():
             "error": True,
             "tipo": "POKEMON_API_ERROR",
             "mensaje": "No se pudo consultar la API de Pokémon"
+        }), 500
+
+
+@app.route("/db-error-real", methods=["GET"])
+def db_error_real():
+    try:
+        conexion = mysql.connector.connect(
+            host="host.docker.internal",
+            port=3506,
+            user="root",
+            password="eneas2805",
+            database="basicosd"
+        )
+
+        cursor = conexion.cursor()
+        cursor.execute("SELECT username, email FROM tabla_que_no_existe")
+        resultado = cursor.fetchone()
+
+        cursor.close()
+        conexion.close()
+
+        return jsonify({
+            "error": False,
+            "resultado": resultado
+        })
+    except mysql.connector.Error:
+        return jsonify({
+            "error": True,
+            "tipo": "DB_ERROR_REAL",
+            "mensaje": "Se produjo un error real al consultar la base de datos"
         }), 500
 
 if __name__ == "__main__":
